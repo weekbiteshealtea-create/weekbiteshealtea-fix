@@ -743,3 +743,80 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .traits, .reviews .swipe-hint { margin-bottom: 12px; }
 }
 @media (min-width: 961px) { .mobile-menu, .nav-scrim { display: none; } }
+
+/* ===== Gallery: bento cute (bingkai pastel per rasa + maskot) ===== */
+.gallery { padding: calc(var(--section) + 10px) 0 var(--section); text-align: center; background: var(--chips), var(--oat); --edge: var(--oat); }
+.gallery .section-sub { margin: 12px auto 0; }
+
+/* maskot + balon kata */
+.gallery-hello { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; }
+.gallery-hello .buddy { width: 54px; }
+.gallery-bubble {
+  position: relative; padding: 8px 16px; border-radius: 18px; background: var(--paper); border: var(--outline); box-shadow: var(--pop-sm);
+  font-family: var(--font-hand); font-size: 1.3rem; font-weight: 700; color: var(--milk);
+}
+.gallery-bubble::before { /* ekor balon */
+  content: ""; position: absolute; left: -9px; top: 50%; width: 14px; height: 14px; translate: 0 -50%; rotate: 45deg;
+  background: var(--paper); border-left: var(--outline); border-bottom: var(--outline);
+}
+
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 30px; }
+.gallery-item {
+  position: relative; display: block; padding: 9px; aspect-ratio: 1131 / 1600; cursor: zoom-in;
+  background: var(--t, var(--paper)); border: var(--outline); border-radius: 26px;
+  box-shadow: var(--pop), inset 0 3px 0 rgba(255, 255, 255, 0.7);
+}
+.js .gallery-item.reveal { transition: opacity 0.7s var(--ease) var(--d, 0ms), transform 0.7s var(--ease) var(--d, 0ms), translate 0.3s var(--ease), scale 0.2s var(--ease), box-shadow 0.3s var(--ease); }
+.gallery-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+.gallery-item img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; border: 2px solid rgba(74, 44, 29, 0.18); transition: scale 0.6s var(--ease); }
+.gallery-item:hover { translate: 0 -5px; box-shadow: 5px 9px 0 var(--cocoa), inset 0 3px 0 rgba(255, 255, 255, 0.7); }
+.gallery-item:hover img { scale: 1.035; }
+.gallery-item:active { scale: 0.98; }
+.gallery-item:focus-visible { outline: 3px solid var(--caramel); outline-offset: 4px; }
+.gallery-cap {
+  position: absolute; left: 50%; bottom: -16px; translate: -50% 0; z-index: 1; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px; padding: 6px 16px; border-radius: 999px;
+  background: var(--paper); border: var(--outline); box-shadow: var(--pop-sm);
+  font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; color: var(--cocoa);
+  transition: translate 0.3s var(--ease);
+}
+.gallery-cap::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--caramel)); border: 1.5px solid var(--cocoa); }
+.gallery-item:hover .gallery-cap { translate: -50% -3px; }
+.gallery-grid { row-gap: 40px; padding-bottom: 16px; }
+
+/* maskot rasa yang ngintip dari atas tiap kartu */
+.gallery-peek { position: absolute; top: -34px; right: 16px; z-index: 2; width: 56px; transition: translate 0.35s var(--spring); pointer-events: none; }
+.gallery-peek .buddy { width: 100%; }
+.gallery-item:nth-child(odd) .gallery-peek { right: auto; left: 16px; }
+.gallery-item:hover .gallery-peek { translate: 0 -8px; }
+.gallery .section-title::before, .gallery .section-title::after { content: "✦"; color: var(--caramel); font-size: 0.5em; vertical-align: super; margin: 0 0.35em; }
+.gallery-grid { margin-top: 56px; row-gap: 64px; }
+
+/* lightbox: foto dibuka besar di halaman yang sama */
+.lightbox { padding: 0; border: 0; background: transparent; max-width: min(92vw, 560px); max-height: 92vh; overflow: visible; }
+.lightbox::backdrop { background: rgba(42, 25, 17, 0.7); backdrop-filter: blur(4px); }
+.lightbox img { display: block; width: 100%; max-height: 92vh; object-fit: contain; border: var(--outline); border-radius: 18px; box-shadow: var(--pop); }
+.lightbox[open], .lightbox[open]::backdrop { animation: lb-in 0.3s var(--ease); }
+@keyframes lb-in { from { opacity: 0; scale: 0.96; } }
+.lightbox-close { position: absolute; top: -14px; right: -14px; width: 44px; height: 44px; border-radius: 50%; border: var(--outline); background: var(--paper); color: var(--cocoa); font-size: 1.1rem; cursor: pointer; box-shadow: var(--pop-sm); }
+
+@media (max-width: 760px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 56px 14px; }
+  .gallery-peek { width: 44px; top: -28px; }
+  .gallery-item { padding: 7px; border-radius: 22px; }
+  .gallery-item img { border-radius: 15px; }
+  .gallery-item:first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 1131 / 1600; }
+  .gallery-cap { font-size: 0.82rem; padding: 5px 11px; bottom: -14px; }
+  .gallery-hello .buddy { width: 44px; }
+  .gallery-bubble { font-size: 1.1rem; }
+}
+
+/* ===== Lokasi ===== */
+.lokasi { padding: calc(var(--section) + 10px) 0 var(--section); --edge: var(--cream); }
+.lokasi-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; align-items: center; }
+.lokasi .section-sub { margin: 14px 0 22px; }
+.lokasi-map { width: 100%; aspect-ratio: 4 / 3; border: var(--outline); border-radius: var(--radius); box-shadow: var(--pop); }
+@media (max-width: 760px) { .lokasi-grid { grid-template-columns: 1fr; } }
+
+/* ===== Tombol suara jingle ===== */
+.sound-toggle { position: fixed; left: 18px; bottom: 18px; z-index: 60; width: 52px; height: 52px; border-radius: 50%; border: var(--outline); background: var(--cream); box-shadow: var(--pop-sm); font-size: 22px; cursor: pointer; }

@@ -115,3 +115,44 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     });
   }
 }
+
+// ---------- 4. Jingle ----------
+// Browser memblokir suara otomatis, jadi kalau diblokir lagu diputar
+// begitu pengunjung pertama kali klik/tap/tekan tombol di halaman.
+const jingle = document.getElementById("jingle");
+const soundBtn = document.querySelector(".sound-toggle");
+const unlockEvents = ["pointerdown", "keydown", "touchstart"];
+
+function unlock(e) {
+  if (e.target.closest(".sound-toggle")) return; // tombol suara punya aturannya sendiri
+  unlockEvents.forEach((ev) => document.removeEventListener(ev, unlock));
+  if (!jingle.muted) jingle.play().catch(() => {});
+}
+jingle.play().catch(() => unlockEvents.forEach((ev) => document.addEventListener(ev, unlock)));
+
+soundBtn.addEventListener("click", () => {
+  if (jingle.paused) {
+    jingle.muted = false;
+    jingle.play().catch(() => {});
+  } else {
+    jingle.muted = !jingle.muted;
+  }
+  soundBtn.textContent = jingle.muted ? "🔇" : "🔊";
+  soundBtn.setAttribute("aria-label", jingle.muted ? "Nyalakan suara" : "Matikan suara");
+});
+
+// ---------- 5. Lightbox gallery ----------
+// Klik foto gallery: dibuka besar di halaman yang sama (Esc / klik luar untuk tutup).
+const lightbox = document.querySelector(".lightbox");
+if (lightbox && lightbox.showModal) {
+  const lbImg = lightbox.querySelector("img");
+  document.querySelectorAll(".gallery-item").forEach((a) =>
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      lbImg.src = a.href;
+      lbImg.alt = a.querySelector("img").alt;
+      lightbox.showModal();
+    })
+  );
+  lightbox.addEventListener("click", (e) => e.target !== lbImg && lightbox.close());
+}
